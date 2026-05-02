@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Sachin, With Love ❤️</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&family=Caveat:wght@400;600;700&display=swap');
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a0a0a 0%, #3d1f1f 50%, #1a0a0a 100%);
+      font-family: 'Poppins', sans-serif;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+    
+    .music-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 0, 76, 0.2);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 107, 157, 0.5);
+      color: #ff8fa3;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 100;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .music-btn:hover {
+      background: rgba(255, 0, 76, 0.4);
+      transform: scale(1.1);
+    }
+    
+    .music-btn.playing {
+      animation: musicPulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes musicPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 0, 76, 0.7); }
+      50% { box-shadow: 0 0 0 15px rgba(255, 0, 76, 0); }
+    }
+    
+    .rose-petal {
+      position: fixed;
+      font-size: 20px;
+      animation: falling linear infinite;
+      opacity: 0.6;
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    @keyframes falling {
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+    
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .love-card, .memory-section, .love-letter-section, .languages-section {
+      background: rgba(20, 10, 0.8);
+      backdrop-filter: blur(15px);
+      border-radius: 30px;
+      padding: 40px 30px;
+      box-shadow: 0 0 60px rgba(255, 0, 76, 0.4), inset 0 0 30px rgba(255, 0, 76, 0.1);
+      text-align: center;
+      position: relative;
+      border: 2px solid rgba(255, 105, 135, 0.3);
+      z-index: 2;
+      margin-bottom: 30px;
+    }
+    
+    .photo-heart {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 25px;
+      position: relative;
+      filter: drop-shadow(0 0 20px rgba(255, 0, 76, 0.6));
+    }
+    
+    .photo-heart::before {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      background: linear-gradient(45deg, #ff004c, #ff6b9d, #ffc1cc, #ff004c);
+      border-radius: 50%;
+      animation: pulse 3s ease-in-out infinite;
+      z-index: -1;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+    }
+    
+    .photo-heart img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #1a0a0a;
+    }
+    
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      background: linear-gradient(45deg, #ff004c, #ff6b9d, #ffc1cc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 5px;
+    }
+    
+    .for-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      color: #ffc1cc;
+      margin-bottom: 20px;
+    }
+    
+    .romantic-line {
+      color: #ffb3c6;
+      font-size: 0.9rem;
+      font-style: italic;
+      margin-bottom: 25px;
+      opacity: 0.9;
+    }
+    
+    .code-block {
+      background: #0d0d0d;
+      color: #ff8fa3;
+      border-radius: 15px;
+      padding: 22px;
+      text-align: left;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      margin: 25px 0;
+      border: 1px solid rgba(255, 0, 76, 0.3);
+    }
+    
+    .keyword { color: #ff4d6d; }
+    .string { color: #ffccd5; }
+    .number { color: #ff8fa3; }
+    .comment { color: #a4133c; font-style: italic; }
+    .var { color: #ff758f; }
+    
+    .date-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 25px 0;
+    }
+    
+    .stat {
+      background: rgba(255, 0, 76, 0.1);
+      border: 1px solid rgba(255, 107, 157, 0.3);
+      padding: 15px 10px;
+      border-radius: 15px;
+    }
+    
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #ff4d6d;
+      font-family: 'Great Vibes', cursive;
+    }
+    
+    .stat-label {
+      font-size: 0.7rem;
+      color: #ffc1cc;
+      margin-top: 3px;
+    }
+    
+    button {
+      background: linear-gradient(135deg, #ff004c, #c9184a);
+      border: none;
+      padding: 16px 45px;
+      border-radius: 50px;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.4s;
+      box-shadow: 0 5px 25px rgba(255, 0, 76, 0.5);
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 1px;
+      margin: 10px 5px;
+    }
+    
+    button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 35px rgba(255, 0, 76, 0.7);
+    }
+    
+    #loveMessage {
+      margin-top: 25px;
+      font-size: 1rem;
+      color: #ffccd5;
+      line-height: 1.8;
+      min-height: 80px;
+      font-weight: 300;
+    }
+    
+    #loveMessage b {
+      color: #ff4d6d;
+      font-weight: 500;
+    }
+    
+    .heart-beat {
+      display: inline-block;
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      10%, 30% { transform: scale(1.1); }
+      20%, 40% { transform: scale(1); }
+    }
+    
+    .memory-title, .letter-title, .lang-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      color: #ff6b9d;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .memory-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 15px;
+      border: 3px solid rgba(255, 107, 157, 0.4);
+      transition: 0.4s;
+      cursor: pointer;
+    }
+    
+    .memory-img:hover {
+      transform: scale(1.05);
+      border-color: #ff004c;
+      box-shadow: 0 0 25px rgba(255, 0, 76, 0.6);
+    }
+    
+    .memory-caption {
+      text-align: center;
+      color: #ffb3c6;
+      font-size: 0.85rem;
+      font-style: italic;
+      margin-top: 15px;
+    }
+    
+    .book {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      height: 500px;
+      margin: 0 auto;
+      perspective: 1500px;
+    }
+    
+    .book-page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #fff9f0;
+      background-image: repeating-linear-gradient(#fff9f0 0px, #fff9f0 24px, #e8dcc4 25px);
+      border-radius: 5px 15px 15px 5px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      padding: 40px 30px;
+      transform-origin: left center;
+      transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+      backface-visibility: hidden;
+      overflow-y: auto;
+    }
+    
+    .book-page.flipped {
+      transform: rotateY(-180deg);
+    }
+    
+    .book-page::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 30px;
+      background: linear-gradient(90deg, rgba(139, 69, 19, 0.2), transparent);
+    }
+    
+    .letter-content {
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      line-height: 1.8;
+      color: #3d2817;
+      text-align: left;
+    }
+    
+    .letter-content h3 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      color: #c9184a;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    
+    .letter-content p {
+      margin-bottom: 15px;
+      text-indent: 20px;
+    }
+    
+    .letter-date {
+      text-align: right;
+      font-style: italic;
+      color: #8b4513;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+    
+    .signature {
+      text-align: right;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.8rem;
+      color: #c9184a;
+      margin-top: 20px;
+    }
+    
+    .page-number {
+      position: absolute;
+      bottom: 15px;
+      right: 20px;
+      font-family: 'Caveat', cursive;
+      color: #8b4513;
+      font-size: 1rem;
+    }
+    
+    .book-controls {
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .languages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 20px;
+      background: rgba(255, 0, 76, 0.05);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 107, 157, 0.2);
+    }
+    
+    .languages-grid::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .languages-grid::-webkit-scrollbar-track {
+      background: rgba(255, 0, 76, 0.1);
+      border-radius: 10px;
+    }
+    
+    .languages-grid::-webkit-scrollbar-thumb {
+      background: #ff4d6d;
+      border-radius: 10px;
+    }
+    
+    .lang-item {
+      background: rgba(255, 0, 76, 0.1);
+      border: 1px solid rgba(255, 107, 157, 0.3);
+      padding: 10px 8px;
+      border-radius: 10px;
+      transition: 0.3s;
+      cursor: default;
+    }
+    
+    .lang-item:hover {
+      background: rgba(255, 0, 76, 0.2);
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 0, 76, 0.3);
+    }
+    
+    .lang-text {
+      color: #ffccd5;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 3px;
+    }
+    
+    .lang-name {
+      color: #ff8fa3;
+      font-size: 0.65rem;
+      opacity: 0.8;
+    }
+    
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .lightbox.active {
+      display: flex;
+    }
+    
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 20px;
+      border: 4px solid #ff004c;
+    }
+    
+    .close-lightbox {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      font-size: 3rem;
+      color: #ff6b9d;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <audio id="bgMusic" loop>
+    <source src="./love.mp3" type="audio/mpeg">
+  </audio>
+  
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵</button>
+  <div id="petals"></div>
+  
+  <div class="container">
+    <!-- Main Birthday Card -->
+    <div class="love-card">
+      <div class="photo-heart">
+        <img src="./him.jpg" alt="Sachin">
+      </div>
+      
+      <h1>Happy Birthday</h1>
+      <div class="for-name">Sachin <span class="heart-beat">❤️</span></div>
+      <p class="romantic-line">"Some souls just fit like they were written in the same story"</p>
+      
+      <div class="code-block">
+        <span class="comment">// initializing Sachin.sh</span><br>
+        <span class="keyword">const</span> <span class="var">Sachin</span> = {<br>
+        &nbsp;&nbsp;born: <span class="string">"04/05/1998"</span>, <span class="comment">// the day stars aligned</span><br>
+        &nbsp;&nbsp;foundMe: <span class="string">"24/10/2024"</span>, <span class="comment">// my fav timestamp</span><br>
+        &nbsp;&nbsp;age: <span class="number" id="age"></span>,<br>
+        &nbsp;&nbsp;memories: <span class="number">Unlimited</span>,<br>
+        &nbsp;&nbsp;role: <span class="string">"Owner of My Heart"</span><br>
+        };<br><br>
+        <span class="keyword">while</span> (myHeart.beats()) {<br>
+        &nbsp;&nbsp;<span class="var">love</span>.push(<span class="string">"Sachin"</span>);<br>
+        }
+      </div>
+      
+      <div class="date-stats">
+        <div class="stat">
+          <div class="stat-number" id="ageStat">0</div>
+          <div class="stat-label">Years of You</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number" id="daysStat">0</div>
+          <div class="stat-label">Days You're Mine</div>
+        </div>
+      </div>
+      
+      <button onclick="revealLove()">Open My Heart 💌</button>
+      <div id="loveMessage"></div>
+    </div>
+    
+    <!-- Love Letter Book -->
+    <div class="love-letter-section">
+      <h2 class="letter-title">A Letter For You 📖</h2>
+      <div class="book" id="loveBook">
+        <div class="book-page" id="page1">
+          <div class="letter-content">
+            <div class="letter-date">24/10/2024</div>
+            <h3>My Dearest Sachin,</h3>
+            <p>
+              I still remember <b>24/10/2024</b> like it was yesterday. The day you walked into my life and suddenly everything made sense. Like my heart had been waiting for you since <b>04/05/1998</b> and just didn't know it yet.
+            </p>
+            <p>
+              You know what's crazy? Before you, I thought I understood what love was. I was wrong. Love is the way you laugh at my silly jokes. Love is how safe I feel when I'm with you. Love is <b>Sachin</b>.
+            </p>
+            <div class="page-number">1</div>
+          </div>
+        </div>
+        
+        <div class="book-page" id="page2">
+          <div class="letter-content">
+            <p>
+              Every day since <b>24/10/2024</b> has been a gift. You turned my ordinary life into my favorite story. You make me want to be better, love deeper, dream bigger.
+            </p>
+            <p>
+              On your birthday, I just want you to know - you are loved more than words in this letter, more than stars in the sky, more than all the code I could ever write.
+            </p>
+            <p>
+              Thank you for choosing me. Thank you for being born on <b>04/05/1998</b>. Thank you for existing.
+            </p>
+            <p>
+              Today you turn another year older, but to me you'll always be the boy who made my heart skip a beat on <b>24/10/2024</b>.
+            </p>
+            <div class="signature">Forever Yours ❤️</div>
+            <div class="page-number">2</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="book-controls">
+        <button onclick="flipBook()">Turn Page 📖</button>
+      </div>
+    </div>
+    
+    <!-- Memory Gallery -->
+    <div class="memory-section">
+      <h2 class="memory-title">Our Memories Together 📸</h2>
+      <div class="gallery">
+        <img src="./memory1.jpg" alt="Memory 1" class="memory-img" onclick="openLightbox(this.src)">
+        <img src="./memory2.jpg" alt="Memory 2" class="memory-img" onclick="openLightbox(this.src)">
+        <img src="./memory3.jpg" alt="Memory 3" class="memory-img" onclick="openLightbox(this.src)">
+        <img src="./memory4.jpg" alt="Memory 4" class="memory-img" onclick="openLightbox(this.src)">
+        <img src="./memory5.jpg" alt="Memory 5" class="memory-img" onclick="openLightbox(this.src)">
+        <img src="./memory6.jpg" alt="Memory 6" class="memory-img" onclick="openLightbox(this.src)">
+        <img src="./memory7.jpg" alt="Memory 7" class="memory-img" onclick="openLightbox(this.src)">
+        <video class="memory-img" onclick="openLightbox(this.src)" >
+          <source src="./memory8.mp4" type="video/mp4">
+        </video>
+
+      </div>
+      <p class="memory-caption">Every moment with you since 24/10/2024 is my favorite memory 💕</p>
+    </div>
+    
+    <!-- I Love You in 100 Languages -->
+    <div class="languages-section">
+      <h2 class="lang-title">I Love You, Sachin 🌍</h2>
+      <p style="color: #ffb3c6; font-size: 0.9rem; margin-bottom: 25px; font-style: italic;">
+        In every language, in every way, since 24/10/2024 💕
+      </p>
+      <div class="languages-grid" id="loveLanguages"></div>
+      <p style="color: #ff8fa3; font-size: 0.85rem; margin-top: 20px;">
+        But my favorite way to say it is just... <b>Sachin, I love you</b> ❤️
+      </p>
+    </div>
+  </div>
+  
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="close-lightbox">&times;</span>
+    <img id="lightboxImg" src="">
+  </div>
+
+  <script>
+    // Music control
+    const music = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+    let musicPlaying = false;
+    
+    function toggleMusic() {
+      if (musicPlaying) {
+        music.pause();
+        musicBtn.textContent = '🎵';
+        musicBtn.classList.remove('playing');
+      } else {
+        music.play().catch(e => console.log('Click anywhere first to enable audio'));
+        musicBtn.textContent = '🔇';
+        musicBtn.classList.add('playing');
+      }
+      musicPlaying = !musicPlaying;
+    }
+    
+    // Auto calculate
+    const birthDate = new Date('1998-05-04');
+    const metDate = new Date('2024-10-24');
+    const today = new Date();
+    
+    const age = today.getFullYear() - birthDate.getFullYear();
+    const daysKnown = Math.floor((today - metDate) / (1000 * 60 * 60 * 24));
+    
+    document.getElementById('age').textContent = age;
+    document.getElementById('ageStat').textContent = age;
+    document.getElementById('daysStat').textContent = daysKnown > 0 ? daysKnown : 0;
+    document.getElementById('memCount').textContent = document.querySelectorAll('.memory-img').length;
+    
+    // Romantic messages
+    const loveNotes = [
+      `My dearest <b>Sachin</b>,<br>On <b>04/05/1998</b> the world was gifted you.<br>On <b>24/10/2024</b> I was gifted your love.<br>Read the letter I wrote for you 📖❤️`,
+      `<b>Sachin</b>, you turned <b>${age}</b> today...<br>But you'll forever be the boy who made <b>24/10/2024</b> feel like magic.<br>Scroll down, there's a book with my heart in it 🌹`,
+      `If I could code my feelings:<br><br>love.sachin = Infinity;<br>memories.sachin = ${document.querySelectorAll('.memory-img').length};<br>future.sachin = "Forever";<br><br>Happy Birthday to my <b>04/05/1998</b> miracle 💕`
+    ];
+    
+    let noteIndex = 0;
+    function revealLove() {
+      document.getElementById('loveMessage').innerHTML = loveNotes[noteIndex % loveNotes.length];
+      noteIndex++;
+      if (!musicPlaying) toggleMusic();
+      for(let i = 0; i < 30; i++) {
+        setTimeout(() => createPetal(true), i * 50);
+      }
+    }
+    
+    // Book flip
+    let currentPage = 1;
+    function flipBook() {
+      const page1 = document.getElementById('page1');
+      if (currentPage === 1) {
+        page1.classList.add('flipped');
+        currentPage = 2;
+      } else {
+        page1.classList.remove('flipped');
+        currentPage = 1;
+      }
+    }
+    
+    // Gallery lightbox
+    function openLightbox(src) {
+      document.getElementById('lightbox').classList.add('active');
+      document.getElementById('lightboxImg').src = src;
+    }
+    
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+    
+    // Falling rose petals
+    function createPetal(burst = false) {
+      const petal = document.createElement('div');
+      petal.className = 'rose-petal';
+      petal.textContent = ['🌹','💕','💖','❤️'][Math.floor(Math.random() * 4)];
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.animationDuration = (burst ? 2 : 5 + Math.random() * 5) + 's';
+      petal.style.fontSize = (burst ? 15 : 10) + Math.random() * 15 + 'px';
+      document.getElementById('petals').appendChild(petal);
+      setTimeout(() => petal.remove(), burst ? 2000 : 10000);
+    }
+    
+    setInterval(() => createPetal(), 800);
+    
+    document.body.addEventListener('click', function initAudio() {
+      if (!musicPlaying) music.volume = 0.3;
+      document.body.removeEventListener('click', initAudio);
+    }, { once: true });
+    
+    // I Love You in 100 Languages
+    const loveLanguages = [
+      {text: "I love you", lang: "English"},
+      {text: "मैं तुमसे प्यार करता हूँ", lang: "Hindi"},
+      {text: "मी तुझ्यावर प्रेम करतो", lang: "Marathi"},
+      {text: "Te amo", lang: "Spanish"},
+      {text: "Je t'aime", lang: "French"},
+      {text: "Ich liebe dich", lang: "German"},
+      {text: "Ti amo", lang: "Italian"},
+      {text: "Eu te amo", lang: "Portuguese"},
+      {text: "愛してる", lang: "Japanese"},
+      {text: "사랑해", lang: "Korean"},
+      {text: "我爱你", lang: "Chinese"},
+      {text: "Я тебя люблю", lang: "Russian"},
+      {text: "أحبك", lang: "Arabic"},
+      {text: "Σ' αγαπώ", lang: "Greek"},
+      {text: "Ani ohev otach", lang: "Hebrew"},
+      {text: "Seni seviyorum", lang: "Turkish"},
+      {text: "Kocham cię", lang: "Polish"},
+      {text: "Jag älskar dig", lang: "Swedish"},
+      {text: "Jeg elsker deg", lang: "Norwegian"},
+      {text: "Jeg elsker dig", lang: "Danish"},
+      {text: "Ik hou van jou", lang: "Dutch"},
+      {text: "Rakastan sinua", lang: "Finnish"},
+      {text: "Ég elska þig", lang: "Icelandic"},
+      {text: "T'estimo", lang: "Catalan"},
+      {text: "Maite zaitut", lang: "Basque"},
+      {text: "Volim te", lang: "Croatian"},
+      {text: "Milujem ťa", lang: "Slovak"},
+      {text: "Miluji tě", lang: "Czech"},
+      {text: "Szeretlek", lang: "Hungarian"},
+      {text: "Te iubesc", lang: "Romanian"},
+      {text: "Обичам те", lang: "Bulgarian"},
+      {text: "Ljubim te", lang: "Slovenian"},
+      {text: "Te dua", lang: "Albanian"},
+      {text: "Ek het jou lief", lang: "Afrikaans"},
+      {text: "Ndagukunda", lang: "Kinyarwanda"},
+      {text: "Nakupenda", lang: "Swahili"},
+      {text: "Ngiyakuthanda", lang: "Zulu"},
+      {text: "Ke a go rata", lang: "Tswana"},
+      {text: "Ndiyakuthanda", lang: "Xhosa"},
+      {text: "Mahal kita", lang: "Tagalog"},
+      {text: "Saya cinta kamu", lang: "Indonesian"},
+      {text: "Saya sayang awak", lang: "Malay"},
+      {text: "ฉันรักคุณ", lang: "Thai"},
+      {text: "Tôi yêu bạn", lang: "Vietnamese"},
+      {text: "Anh yêu em", lang: "Vietnamese"},
+      {text: "မင်းကိုချစ်တယ်", lang: "Burmese"},
+      {text: "ខ្ញុំស្រលាញ់អ្នក", lang: "Khmer"},
+      {text: "ຂ້ອຍຮັກເຈົ້າ", lang: "Lao"},
+      {text: "நான் உன்னை காதலிக்கிறேன்", lang: "Tamil"},
+      {text: "నేను నిన్ను ప్రేమిస్తున్నాను", lang: "Telugu"},
+      {text: "ഞാൻ നിന്നെ സ്നേഹിക്കുന്നു", lang: "Malayalam"},
+      {text: "ನಾನು ನಿನ್ನನ್ನು ಪ್ರೀತಿಸುತ್ತೇನೆ", lang: "Kannada"},
+      {text: "હું તને પ્રેમ કરું છું", lang: "Gujarati"},
+      {text: "ਮੈਂ ਤੈਨੂੰ ਪਿਆਰ ਕਰਦਾ ਹਾਂ", lang: "Punjabi"},
+      {text: "আমি তোমায় ভালোবাসি", lang: "Bengali"},
+      {text: "ମୁଁ ତୁମକୁ ଭଲ ପାଏ", lang: "Odia"},
+      {text: "म तिमीलाई माया गर्छु", lang: "Nepali"},
+      {text: "මම ඔයාට ආදරෙයි", lang: "Sinhala"},
+      {text: "من تۆم خۆش دەوی", lang: "Kurdish"},
+      {text: "دوستت دارم", lang: "Persian"},
+      {text: "من تہانوں پیار کردا ہاں", lang: "Punjabi"},
+      {text: "میں تم سے محبت کرتا ہوں", lang: "Urdu"},
+      {text: "মই তোমাক ভাল পাও", lang: "Assamese"},
+      {text: "Tá grá agam duit", lang: "Irish"},
+      {text: "Tha gaol agam ort", lang: "Scottish Gaelic"},
+      {text: "Rwy'n dy garu di", lang: "Welsh"},
+      {text: "Mən səni sevirəm", lang: "Azerbaijani"},
+      {text: "მიყვარხარ", lang: "Georgian"},
+      {text: "Ես քեզ սիրում եմ", lang: "Armenian"},
+      {text: "Би чамд хайртай", lang: "Mongolian"},
+      {text: "Men seni sevaman", lang: "Uzbek"},
+      {text: "Мен сені сүйемін", lang: "Kazakh"},
+      {text: "Men seni söýärin", lang: "Turkmen"},
+      {text: "Ман туро дӯст медорам", lang: "Tajik"},
+      {text: "Мен сени сүйөм", lang: "Kyrgyz"},
+      {text: "Ma armastan sind", lang: "Estonian"},
+      {text: "Es tevi mīlu", lang: "Latvian"},
+      {text: "Aš tave myliu", lang: "Lithuanian"},
+      {text: "Ya tabe kahayu", lang: "Hausa"},
+      {text: "Mo nifẹ rẹ", lang: "Yoruba"},
+      {text: "Alofa ia te oe", lang: "Samoan"},
+      {text: "Aroha ahau ki a koe", lang: "Maori"},
+      {text: "Au aloha oe", lang: "Hawaiian"},
+      {text: "Minä rakastan sinua", lang: "Finnish"},
+      {text: "Phom rak khun", lang: "Thai"},
+      {text: "Chan rak khun", lang: "Thai"},
+      {text: "S'agapó", lang: "Greek"},
+      {text: "Wo ai ni", lang: "Mandarin"},
+      {text: "Ngo oi ney", lang: "Cantonese"},
+      {text: "Mi amas vin", lang: "Esperanto"},
+      {text: "Ech hunn dech gär", lang: "Luxembourgish"},
+      {text: "Is breá liom tú", lang: "Irish"},
+      {text: "Kimi wo ai shiteru", lang: "Japanese"},
+      {text: "Saranghae", lang: "Korean"},
+      {text: "Ay-ayaten ka", lang: "Ilocano"},
+      {text: "Nga iin saal", lang: "Navajo"},
+      {text: "Taim i' ngra leat", lang: "Irish"},
+      {text: "Inay ka mahal", lang: "Cebuano"},
+      {text: "Kuv hlub koj", lang: "Hmong"},
+      {text: "Waalay ku jeclahay", lang: "Somali"},
+      {text: "Seviyorum seni", lang: "Turkish"},
+      {text: "M'bi fe", lang: "Wolof"}
+    ];
+    
+    const langContainer = document.getElementById('loveLanguages');
+    loveLanguages.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'lang-item';
+      div.innerHTML = `
+        <span class="lang-text">${item.text}</span>
+        <span class="lang-name">${item.lang}</span>
+      `;
+      langContainer.appendChild(div);
+    });
+  </script>
+</body>
+</html>
